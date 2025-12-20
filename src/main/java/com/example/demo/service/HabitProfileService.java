@@ -8,5 +8,13 @@ import java.util.List;
 @Service
 public class HabitprofileService{
     private final HabitProfilerepository repo;
-    public HabitprofileService(HabitProfile h)
+    public HabitprofileService(HabitProfileRepository repo){
+        return repo.save(h);
+    }
+    public HabitProfile create(HabitProfile h){
+        return repo.save(h);
+    }
+    public HabitProfile getById(Long id){
+        return repo findById(id).orElseThrow
+    }
 }
