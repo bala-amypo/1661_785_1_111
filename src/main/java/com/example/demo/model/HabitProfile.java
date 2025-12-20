@@ -10,5 +10,11 @@ import lombok.Setter;
 
 public class HabitProfile{
     @Id
-    @generatedValue(strategy)
+    @generatedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    @OneToOne
+    private StudentProfile student;
+    private boolean smoking;
+    private boolean drinking;
+    private int cleanlinessLevel;
 }
