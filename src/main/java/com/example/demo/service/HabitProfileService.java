@@ -22,7 +22,8 @@ public class HabitProfileService {
 
     public HabitProfile getById(Long id) {
         return repo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Habit not found"));
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Habit not found"));
     }
 
     public List<HabitProfile> getAll() {
@@ -39,5 +40,5 @@ public class HabitProfileService {
 
     public void delete(Long id) {
         repo.delete(getById(id));
-    }
+    }
 }
