@@ -40,5 +40,5 @@ public class HabitProfileController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         service.delete(id);
-    }
+    }
 }
