@@ -22,6 +22,13 @@ public class StudentPeofileService{
         return repo.findAll();
     }
     public StudentProfile update(Long id,StudentProfile updated){
-        Student
+        StudentProfile p=getById(id);
+        p.setName(updated.getName());
+        p.setAge(updated.getAge());
+        p.setCourse(updated.getCourse());
+        return repo.save(p);
+    }
+    public void delete(Long id){
+        repo.delete(getById(id));
     }
 }
