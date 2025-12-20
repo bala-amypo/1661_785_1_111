@@ -1,27 +1,11 @@
-package com.example.demo.model;
+public void setSmoking(boolean smoking) {
+    this.smoking = smoking;
+}
 
-import jakarta.persistence.*;
+public void setDrinking(boolean drinking) {
+    this.drinking = drinking;
+}
 
-@Entity
-public class HabitProfile {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private boolean smoking;
-    private boolean drinking;
-    private int cleanlinessLevel;
-
-    public boolean isSmoking() {
-        return smoking;
-    }
-
-    public boolean isDrinking() {
-        return drinking;
-    }
-
-    public int getCleanlinessLevel() {
-        return cleanlinessLevel;
-    }
+public void setCleanlinessLevel(int cleanlinessLevel) {
+    this.cleanlinessLevel = cleanlinessLevel;
 }
