@@ -15,6 +15,12 @@ public class HabitprofileService{
         return repo.save(h);
     }
     public HabitProfile getById(Long id){
-        return repo findById(id).orElseThrow
+        return repo findById(id).orElseThrow(()->new ResourceNotFoundException("Habit not Found"));
+    }
+    public List<HabitProfile> getAll(){
+        return repo.findAll();
+    }
+    public HabitProfile update(Long id,HabitProfile updated){
+        HabitProfile h =
     }
 }
