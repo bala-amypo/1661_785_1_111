@@ -15,5 +15,13 @@ public class StudentPeofileService{
         throw new IllegalArgumentException("age must be>0");
         return repo.save(profile);
     }
-    public
+    public StudentProfile getById(Long id){
+        return repo.findById(id).orElseThrow(()->new ResourceNotFoundException("Student not found"));
+    }
+    public List<StudentProfile> getAll(){
+        return repo.findAll();
+    }
+    public StudentProfile update(Long id,StudentProfile updated){
+        Student
+    }
 }
