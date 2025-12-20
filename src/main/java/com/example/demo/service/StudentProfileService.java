@@ -10,5 +10,10 @@ public class StudentPeofileService{
     public StudentProfileService(StudentProfileRepository repo){
         this.repo=repo;
     }
-    public 
+    public StudentProfile create)StudentProfile create(StudentProfile profile){
+        if(profile.getAge()<=0)
+        throw new IllegalArgumentException("age must be>0");
+        return repo.save(profile);
+    }
+    public
 }
