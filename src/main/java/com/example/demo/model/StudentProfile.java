@@ -13,5 +13,7 @@ public class StudentProfile{
     private Long id;
     @OneToOne
     private UserAccount userAccount;
-    private String
+    private String name;
+    private int age;
+    private String course;
 }
