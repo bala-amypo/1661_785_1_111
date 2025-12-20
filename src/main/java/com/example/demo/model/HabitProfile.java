@@ -1,11 +1,33 @@
-public void setSmoking(boolean smoking) {
-    this.smoking = smoking;
-}
+package com.example.demo.model;
 
-public void setDrinking(boolean drinking) {
-    this.drinking = drinking;
-}
+import jakarta.persistence.*;
 
-public void setCleanlinessLevel(int cleanlinessLevel) {
-    this.cleanlinessLevel = cleanlinessLevel;
+@Entity
+public class HabitProfile {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne
+    private StudentProfile student;
+
+    private boolean smoking;
+    private boolean drinking;
+    private int cleanlinessLevel;
+    private int noisePreference;
+
+    public Long getId() { return id; }
+    public StudentProfile getStudent() { return student; }
+    public boolean isSmoking() { return smoking; }
+    public boolean isDrinking() { return drinking; }
+    public int getCleanlinessLevel() { return cleanlinessLevel; }
+    public int getNoisePreference() { return noisePreference; }
+
+    public void setId(Long id) { this.id = id; }
+    public void setStudent(StudentProfile student) { this.student = student; }
+    public void setSmoking(boolean smoking) { this.smoking = smoking; }
+    public void setDrinking(boolean drinking) { this.drinking = drinking; }
+    public void setCleanlinessLevel(int cleanlinessLevel) { this.cleanlinessLevel = cleanlinessLevel; }
+    public void setNoisePreference(int noisePreference) { this.noisePreference = noisePreference; }
 }
