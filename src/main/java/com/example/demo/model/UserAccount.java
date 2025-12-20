@@ -9,5 +9,9 @@ import lombok.Setter;
 @Entity
 public class UserAccount{
     @Id
-    @GenerataedValue(strate)
+    @GenerataedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true)
+    private String email;
+    private String password;
 }
