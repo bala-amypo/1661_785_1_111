@@ -1,8 +1,19 @@
-package com.example.demo.repository;
+package com.example.demo.model;
 
-import com.example.demo.model.StudentProfile;
-import org.springframework.data.jpa.repository.JpaRepository;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-public interface StudentProfileRepository
-        extends JpaRepository<StudentProfile, Long> {
+@Getter
+@Setter
+@Entity
+public class StudentProfile{
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    @OneToOne
+    private UserAccount userAccount;
+    private String name;
+    private int age;
+    private String course;
 }
