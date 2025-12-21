@@ -39,4 +39,11 @@ public class HabitProfileServiceImpl implements HabitProfileService {
         return habitRepo.findByStudentId(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Habit Profile not found"));
     }
+    @Override
+public void deleteByStudentId(Long studentId) {
+    HabitProfile profile = habitRepo.findByStudentId(studentId)
+            .orElseThrow(() -> new ResourceNotFoundException("Habit Profile not found"));
+    habitRepo.delete(profile);
+}
+
 }

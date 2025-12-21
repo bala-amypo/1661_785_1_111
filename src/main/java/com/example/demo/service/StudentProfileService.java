@@ -8,4 +8,5 @@ public interface StudentProfileService {
     StudentProfile create(StudentProfile profile);
     StudentProfile getById(Long id);
     List<StudentProfile> getAll();
+    void delete(Long id);
 }

@@ -6,4 +6,5 @@ public interface HabitProfileService {
 
     HabitProfile createOrUpdate(HabitProfile profile);
     HabitProfile getByStudentId(Long studentId);
+    void deleteByStudentId(Long studentId);
 }

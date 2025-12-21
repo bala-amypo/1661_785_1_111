@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.StudentProfile;
 import com.example.demo.service.StudentProfileService;
 import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,5 +33,11 @@ public class StudentProfileController {
     @GetMapping("/api/students")
     public List<StudentProfile> getAll() {
         return service.getAll();
+    }
+
+    @DeleteMapping("/api/students/{id}")
+    public String delete(@PathVariable Long id) {
+        service.delete(id);
+        return "Deleted Successfully!";
     }
 }

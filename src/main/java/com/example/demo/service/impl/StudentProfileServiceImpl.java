@@ -15,16 +15,27 @@ public class StudentProfileServiceImpl implements StudentProfileService {
         this.repository = repository;
     }
 
+    @Override
     public StudentProfile create(StudentProfile profile) {
         return repository.save(profile);
     }
 
+    @Override
     public StudentProfile getById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
     }
 
+    @Override
     public List<StudentProfile> getAll() {
         return repository.findAll();
+    }
+
+    @Override
+    public void delete(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Student not found");
+        }
+        repository.deleteById(id);
     }
 }
