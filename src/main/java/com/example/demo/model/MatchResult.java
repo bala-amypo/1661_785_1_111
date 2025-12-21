@@ -9,13 +9,24 @@ public class MatchResult {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private StudentProfile studentA;
-
-    @ManyToOne
-    private StudentProfile studentB;
-
     private Double score;
 
-    // getters & setters
+    public MatchResult() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {   // 🔥 REQUIRED
+        this.score = score;
+    }
 }
