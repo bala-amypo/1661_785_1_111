@@ -1,4 +1,4 @@
-\package com.example.demo.model;
+package com.example.demo.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,12 +20,18 @@ public class HabitProfile {
     private Integer noisePreference;
 
     public Long getId() { return id; }
-    public StudentProfile getStudent() { return student; }
-    public Integer getCleanlinessLevel() { return cleanlinessLevel; }
-    public Integer getNoisePreference() { return noisePreference; }
-
     public void setId(Long id) { this.id = id; }
+
+    public StudentProfile getStudent() { return student; }
     public void setStudent(StudentProfile student) { this.student = student; }
-    public void setCleanlinessLevel(Integer cleanlinessLevel) { this.cleanlinessLevel = cleanlinessLevel; }
-    public void setNoisePreference(Integer noisePreference) { this.noisePreference = noisePreference; }
+
+    public Integer getCleanlinessLevel() { return cleanlinessLevel; }
+    public void setCleanlinessLevel(Integer cleanlinessLevel) {
+        this.cleanlinessLevel = cleanlinessLevel;
+    }
+
+    public Integer getNoisePreference() { return noisePreference; }
+    public void setNoisePreference(Integer noisePreference) {
+        this.noisePreference = noisePreference;
+    }
 }

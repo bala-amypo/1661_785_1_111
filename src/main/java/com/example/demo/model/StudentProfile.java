@@ -19,16 +19,25 @@ public class StudentProfile {
     private String name;
     private Integer age;
     private String course;
-    private Integer yearOfStudy;
     private String roomTypePreference;
 
     public Long getId() { return id; }
-    public UserAccount getUserAccount() { return userAccount; }
-    public Integer getAge() { return age; }
-    public String getRoomTypePreference() { return roomTypePreference; }
-
     public void setId(Long id) { this.id = id; }
+
+    public UserAccount getUserAccount() { return userAccount; }
     public void setUserAccount(UserAccount userAccount) { this.userAccount = userAccount; }
+
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+
+    public Integer getAge() { return age; }
     public void setAge(Integer age) { this.age = age; }
-    public void setRoomTypePreference(String roomTypePreference) { this.roomTypePreference = roomTypePreference; }
+
+    public String getCourse() { return course; }
+    public void setCourse(String course) { this.course = course; }
+
+    public String getRoomTypePreference() { return roomTypePreference; }
+    public void setRoomTypePreference(String roomTypePreference) {
+        this.roomTypePreference = roomTypePreference;
+    }
 }

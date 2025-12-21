@@ -22,10 +22,14 @@ public class MatchResult {
     private Double score;
 
     public Long getId() { return id; }
-    public Double getScore() { return score; }
-
     public void setId(Long id) { this.id = id; }
+
+    public StudentProfile getStudentA() { return studentA; }
     public void setStudentA(StudentProfile studentA) { this.studentA = studentA; }
+
+    public StudentProfile getStudentB() { return studentB; }
     public void setStudentB(StudentProfile studentB) { this.studentB = studentB; }
+
+    public Double getScore() { return score; }
     public void setScore(Double score) { this.score = score; }
 }
