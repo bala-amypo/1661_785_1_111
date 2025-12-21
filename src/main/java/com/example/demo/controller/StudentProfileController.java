@@ -1,10 +1,11 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.StudentProfile;
-import com.example.demo.service.StudentProfileService;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import com.example.demo.model.StudentProfile;
+import com.example.demo.service.StudentProfileService;
 
 @RestController
 @RequestMapping("/api/students")
@@ -17,28 +18,17 @@ public class StudentProfileController {
     }
 
     @PostMapping
-    public StudentProfile create(@RequestBody StudentProfile p) {
-        return service.create(p);
+    public StudentProfile create(@RequestBody StudentProfile profile) {
+        return service.create(profile);
     }
 
     @GetMapping("/{id}")
     public StudentProfile get(@PathVariable Long id) {
-        return service.getById(id);
+        return service.get(id);
     }
 
     @GetMapping
     public List<StudentProfile> getAll() {
         return service.getAll();
-    }
-
-    @PutMapping("/{id}")
-    public StudentProfile update(@PathVariable Long id,
-                                 @RequestBody StudentProfile p) {
-        return service.update(id, p);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
     }
 }

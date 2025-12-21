@@ -1,47 +1,13 @@
 package com.example.demo.service;
 
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.StudentProfile;
-import com.example.demo.repository.StudentProfileRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import com.example.demo.model.StudentProfile;
 
-@Service
-public class StudentProfileService {
+public interface StudentProfileService {
 
-    private final StudentProfileRepository repo;
+    StudentProfile create(StudentProfile profile);
 
-    public StudentProfileService(StudentProfileRepository repo) {
-        this.repo = repo;
-    }
+    StudentProfile get(Long id);
 
-    public StudentProfile create(StudentProfile profile) {
-        if (profile.getAge() <= 0) {
-            throw new IllegalArgumentException("Age must be > 0");
-        }
-        return repo.save(profile);
-    }
-
-    public StudentProfile getById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Student not found"));
-    }
-
-    public List<StudentProfile> getAll() {
-        return repo.findAll();
-    }
-
-    public StudentProfile update(Long id, StudentProfile updated) {
-        StudentProfile p = getById(id);
-        p.setName(updated.getName());
-        p.setAge(updated.getAge());
-        p.setCourse(updated.getCourse());
-        return repo.save(p);
-    }
-
-    public void delete(Long id) {
-        repo.delete(getById(id));
-    }
+    List<StudentProfile> getAll();
 }
