@@ -1,38 +1,27 @@
 package com.example.demo.model;
 
+import java.util.Date;
 import jakarta.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "student_profile")
 public class StudentProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String name;
-    private int age;
+    private String email;
+    private Integer age;
     private String course;
-    private String gender;
     private String roomTypePreference;
 
-    public StudentProfile() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getAge() {   // 🔥 REQUIRED
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    // other getters/setters optional for now
+    @CreationTimestamp
+    private Date createdAt;
 }
