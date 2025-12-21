@@ -1,27 +1,34 @@
 package com.example.demo.model;
 
-import java.util.Date;
-import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "student_profile")
 public class StudentProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
+
+    @OneToOne
+    private UserAccount userAccount;
 
     private String name;
-    private String email;
     private Integer age;
     private String course;
+    private Integer yearOfStudy;
     private String roomTypePreference;
 
-    @CreationTimestamp
-    private Date createdAt;
+    public Long getId() { return id; }
+    public UserAccount getUserAccount() { return userAccount; }
+    public Integer getAge() { return age; }
+    public String getRoomTypePreference() { return roomTypePreference; }
+
+    public void setId(Long id) { this.id = id; }
+    public void setUserAccount(UserAccount userAccount) { this.userAccount = userAccount; }
+    public void setAge(Integer age) { this.age = age; }
+    public void setRoomTypePreference(String roomTypePreference) { this.roomTypePreference = roomTypePreference; }
 }
