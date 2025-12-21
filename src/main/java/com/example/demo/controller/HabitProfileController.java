@@ -2,12 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.model.HabitProfile;
 import com.example.demo.service.HabitProfileService;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/habits")
 public class HabitProfileController {
 
     private final HabitProfileService service;
@@ -16,29 +17,14 @@ public class HabitProfileController {
         this.service = service;
     }
 
-    @PostMapping
-    public HabitProfile create(@RequestBody HabitProfile h) {
-        return service.create(h);
+    @PostMapping("/api/habits/{studentId}")
+    public HabitProfile createOrUpdate(@PathVariable Long studentId, @RequestBody HabitProfile profile) {
+        profile.setStudent(profile.getStudent()); // student must have id
+        return service.createOrUpdate(profile);
     }
 
-    @GetMapping("/{id}")
-    public HabitProfile get(@PathVariable Long id) {
-        return service.getById(id);
-    }
-
-    @GetMapping
-    public List<HabitProfile> getAll() {
-        return service.getAll();
-    }
-
-    @PutMapping("/{id}")
-    public HabitProfile update(@PathVariable Long id,
-                               @RequestBody HabitProfile h) {
-        return service.update(id, h);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    @GetMapping("/api/habits/{studentId}")
+    public HabitProfile get(@PathVariable Long studentId) {
+        return service.getByStudentId(studentId);
     }
 }
