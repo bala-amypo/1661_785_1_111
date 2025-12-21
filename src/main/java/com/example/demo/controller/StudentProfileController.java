@@ -1,38 +1,34 @@
-package com.example.demo.model;
+package com.example.demo.controller;
 
-import jakarta.persistence.*;
+import java.util.List;
 
-@Entity
-public class StudentProfile {
+import org.springframework.web.bind.annotation.*;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+import com.example.demo.model.StudentProfile;
+import com.example.demo.service.StudentProfileService;
 
-    private String name;
-    private int age;
-    private String course;
-    private String gender;
-    private String roomTypePreference;
+@RestController
+@RequestMapping("/api/students")
+public class StudentProfileController {
 
-    public StudentProfile() {
+    private final StudentProfileService service;
+
+    public StudentProfileController(StudentProfileService service) {
+        this.service = service;
     }
 
-    public Long getId() {
-        return id;
+    @PostMapping
+    public StudentProfile create(@RequestBody StudentProfile profile) {
+        return service.create(profile);
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @GetMapping("/{id}")
+    public StudentProfile get(@PathVariable Long id) {
+        return service.get(id);
     }
 
-    public int getAge() {   // 🔥 REQUIRED
-        return age;
+    @GetMapping
+    public List<StudentProfile> getAll() {
+        return service.getAll();
     }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    // other getters/setters optional for now
 }

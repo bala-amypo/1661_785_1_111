@@ -9,14 +9,30 @@ public class StudentProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private UserAccount userAccount;
-
     private String name;
     private int age;
     private String course;
     private String gender;
     private String roomTypePreference;
 
-    // getters & setters
+    public StudentProfile() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getAge() {   // 🔥 REQUIRED
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    // other getters/setters optional for now
 }
