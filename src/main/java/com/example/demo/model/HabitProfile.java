@@ -13,25 +13,25 @@ public class HabitProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private StudentProfile student;
+    private String sleepPattern;
+    private String studyHours;
+    private String dietPreference;
 
-    private Integer cleanlinessLevel;
-    private Integer noisePreference;
+    @OneToOne
+    private StudentProfile studentProfile; // One-to-One with StudentProfile
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public StudentProfile getStudent() { return student; }
-    public void setStudent(StudentProfile student) { this.student = student; }
+    public String getSleepPattern() { return sleepPattern; }
+    public void setSleepPattern(String sleepPattern) { this.sleepPattern = sleepPattern; }
 
-    public Integer getCleanlinessLevel() { return cleanlinessLevel; }
-    public void setCleanlinessLevel(Integer cleanlinessLevel) {
-        this.cleanlinessLevel = cleanlinessLevel;
-    }
+    public String getStudyHours() { return studyHours; }
+    public void setStudyHours(String studyHours) { this.studyHours = studyHours; }
 
-    public Integer getNoisePreference() { return noisePreference; }
-    public void setNoisePreference(Integer noisePreference) {
-        this.noisePreference = noisePreference;
-    }
+    public String getDietPreference() { return dietPreference; }
+    public void setDietPreference(String dietPreference) { this.dietPreference = dietPreference; }
+
+    public StudentProfile getStudentProfile() { return studentProfile; }
+    public void setStudentProfile(StudentProfile studentProfile) { this.studentProfile = studentProfile; }
 }

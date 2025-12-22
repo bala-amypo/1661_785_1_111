@@ -1,49 +1,37 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.HabitProfile;
-import com.example.demo.model.StudentProfile;
-import com.example.demo.repository.HabitProfileRepository;
-import com.example.demo.repository.StudentProfileRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+
+import com.example.demo.model.HabitProfile;
+import com.example.demo.repository.HabitProfileRepository;
+import com.example.demo.service.HabitProfileService;
 
 @Service
 public class HabitProfileServiceImpl implements HabitProfileService {
 
-    private final HabitProfileRepository habitRepo;
-    private final StudentProfileRepository studentRepo;
+    @Autowired
+    private HabitProfileRepository repository;
 
-    public HabitProfileServiceImpl(HabitProfileRepository habitRepo, StudentProfileRepository studentRepo) {
-        this.habitRepo = habitRepo;
-        this.studentRepo = studentRepo;
+    @Override
+    public HabitProfile save(HabitProfile habit) {
+        return repository.save(habit);
     }
 
     @Override
-    public HabitProfile createOrUpdate(HabitProfile profile) {
-        Long studentId = profile.getStudent().getId();
-        StudentProfile student = studentRepo.findById(studentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
-        profile.setStudent(student);
-
-        // check if already exists
-        return habitRepo.findByStudentId(studentId)
-                .map(existing -> {
-                    profile.setId(existing.getId());
-                    return habitRepo.save(profile);
-                })
-                .orElseGet(() -> habitRepo.save(profile));
+    public List<HabitProfile> getAll() {
+        return repository.findAll();
     }
 
     @Override
-    public HabitProfile getByStudentId(Long studentId) {
-        return habitRepo.findByStudentId(studentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Habit Profile not found"));
+    public HabitProfile getById(Long id) throws Exception {
+        return repository.findById(id)
+                .orElseThrow(() -> new Exception("HabitProfile not found with id: " + id));
     }
-    @Override
-public void deleteByStudentId(Long studentId) {
-    HabitProfile profile = habitRepo.findByStudentId(studentId)
-            .orElseThrow(() -> new ResourceNotFoundException("Habit Profile not found"));
-    habitRepo.delete(profile);
-}
 
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 }
