@@ -6,6 +6,6 @@ import com.example.demo.model.StudentProfile;
 public interface StudentProfileService {
     StudentProfile save(StudentProfile student);
     List<StudentProfile> getAll();
-    StudentProfile getById(Long id);
+    StudentProfile getById(Long id) throws Exception;
     void deleteById(Long id);
 }

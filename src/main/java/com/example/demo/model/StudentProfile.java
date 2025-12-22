@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class StudentProfile {
@@ -14,6 +15,7 @@ public class StudentProfile {
     private Long id;
 
     @OneToOne
+    @JsonIgnore  // Ignore this in JSON
     private UserAccount userAccount;
 
     private String name;
@@ -37,7 +39,5 @@ public class StudentProfile {
     public void setCourse(String course) { this.course = course; }
 
     public String getRoomTypePreference() { return roomTypePreference; }
-    public void setRoomTypePreference(String roomTypePreference) {
-        this.roomTypePreference = roomTypePreference;
-    }
+    public void setRoomTypePreference(String roomTypePreference) { this.roomTypePreference = roomTypePreference; }
 }
