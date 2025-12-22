@@ -1,29 +1,21 @@
-package com.example.demo.service;
+package com.example.demo.service.impl;
 
-import com.example.demo.exception.ResourceNotFoundException;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.example.demo.model.StudentProfile;
 import com.example.demo.repository.StudentProfileRepository;
-import java.util.List;
-import org.springframework.stereotype.Service;
+import com.example.demo.service.StudentProfileService;
 
 @Service
 public class StudentProfileServiceImpl implements StudentProfileService {
 
-    private final StudentProfileRepository repository;
-
-    public StudentProfileServiceImpl(StudentProfileRepository repository) {
-        this.repository = repository;
-    }
+    @Autowired
+    private StudentProfileRepository repository;
 
     @Override
-    public StudentProfile create(StudentProfile profile) {
-        return repository.save(profile);
-    }
-
-    @Override
-    public StudentProfile getById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Student not found"));
+    public StudentProfile save(StudentProfile student) {
+        return repository.save(student);
     }
 
     @Override
@@ -32,10 +24,13 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     }
 
     @Override
-    public void delete(Long id) {
-        if (!repository.existsById(id)) {
-            throw new ResourceNotFoundException("Student not found");
-        }
+    public StudentProfile getById(Long id) {
+        return repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
+    }
+
+    @Override
+    public void deleteById(Long id) {
         repository.deleteById(id);
     }
 }
