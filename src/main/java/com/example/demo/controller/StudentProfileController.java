@@ -1,43 +1,37 @@
 package com.example.demo.controller;
 
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.StudentProfile;
 import com.example.demo.service.StudentProfileService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/students")
 public class StudentProfileController {
 
-    private final StudentProfileService service;
+    @Autowired
+    private StudentProfileService service;
 
-    public StudentProfileController(StudentProfileService service) {
-        this.service = service;
+    @PostMapping
+    public StudentProfile createStudent(@RequestBody StudentProfile student) {
+        return service.save(student);
     }
 
-    @PostMapping("/api/students")
-    public StudentProfile create(@RequestBody StudentProfile profile) {
-        return service.create(profile);
-    }
-
-    @GetMapping("/api/students/{id}")
-    public StudentProfile get(@PathVariable Long id) {
-        return service.getById(id);
-    }
-
-    @GetMapping("/api/students")
-    public List<StudentProfile> getAll() {
+    @GetMapping
+    public List<StudentProfile> getAllStudents() {
         return service.getAll();
     }
 
-    @DeleteMapping("/api/students/{id}")
-    public String delete(@PathVariable Long id) {
-        service.delete(id);
-        return "Deleted Successfully!";
+    @GetMapping("/{id}")
+    public StudentProfile getStudentById(@PathVariable Long id) {
+        return service.getById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteStudent(@PathVariable Long id) {
+        service.deleteById(id);
+        return "Student deleted successfully with id " + id;
     }
 }
