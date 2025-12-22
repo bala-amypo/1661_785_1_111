@@ -1,37 +1,37 @@
 package com.example.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
 import com.example.demo.model.HabitProfile;
 import com.example.demo.service.HabitProfileService;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/habit")
 public class HabitProfileController {
 
-    private final HabitProfileService service;
+    @Autowired
+    private HabitProfileService service;
 
-    public HabitProfileController(HabitProfileService service) {
-        this.service = service;
+    @PostMapping
+    public HabitProfile createHabit(@RequestBody HabitProfile habit) {
+        return service.save(habit);
     }
 
-    @PostMapping("/api/habits/{studentId}")
-    public HabitProfile createOrUpdate(@PathVariable Long studentId, @RequestBody HabitProfile profile) {
-        profile.setStudent(profile.getStudent());
-        return service.createOrUpdate(profile);
+    @GetMapping
+    public List<HabitProfile> getAllHabits() {
+        return service.getAll();
     }
 
-    @GetMapping("/api/habits/{studentId}")
-    public HabitProfile get(@PathVariable Long studentId) {
-        return service.getByStudentId(studentId);
+    @GetMapping("/{id}")
+    public HabitProfile getHabitById(@PathVariable Long id) throws Exception {
+        return service.getById(id);
     }
 
-    @DeleteMapping("/api/habits/{studentId}")
-    public String delete(@PathVariable Long studentId) {
-        service.deleteByStudentId(studentId);
-        return "Deleted Successfully!";
+    @DeleteMapping("/{id}")
+    public String deleteHabit(@PathVariable Long id) {
+        service.deleteById(id);
+        return "Deleted successfully";
     }
 }
