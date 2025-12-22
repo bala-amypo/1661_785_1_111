@@ -4,9 +4,8 @@ import com.example.demo.model.StudentProfile;
 import java.util.List;
 
 public interface StudentProfileService {
-
-    StudentProfile create(StudentProfile profile);
-    StudentProfile getById(Long id);
+    StudentProfile save(StudentProfile student);
     List<StudentProfile> getAll();
-    void delete(Long id);
+    StudentProfile getById(Long id);
+    void deleteById(Long id);
 }

@@ -15,7 +15,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    // ErrorResponse class
     static class ErrorResponse {
         private LocalDateTime timestamp;
         private String message;
@@ -27,9 +26,15 @@ public class GlobalExceptionHandler {
             this.status = status;
         }
 
-        // getters
-        public LocalDateTime getTimestamp() { return timestamp; }
-        public String getMessage() { return message; }
-        public int getStatus() { return status; }
+
+        public LocalDateTime getTimestamp() { 
+            return timestamp; 
+            }
+        public String getMessage() { 
+            return message; 
+            }
+        public int getStatus() { 
+            return status;
+             }
     }
 }
