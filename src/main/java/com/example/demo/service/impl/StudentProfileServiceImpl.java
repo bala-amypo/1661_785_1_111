@@ -3,7 +3,7 @@ package com.example.demo.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-
+import com.example.demo.exception.ResourceNotFoundException ;
 import com.example.demo.model.StudentProfile;
 import com.example.demo.repository.StudentProfileRepository;
 import com.example.demo.service.StudentProfileService;
@@ -27,7 +27,7 @@ public class StudentProfileServiceImpl implements StudentProfileService {
     @Override
     public StudentProfile getById(Long id) throws Exception {
         return repository.findById(id)
-                .orElseThrow(() -> new Exception("Student not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException ("Student not found with id: " + id));
     }
 
     @Override
