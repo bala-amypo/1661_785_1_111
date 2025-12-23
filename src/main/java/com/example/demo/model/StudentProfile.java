@@ -15,7 +15,7 @@ public class StudentProfile {
     private Long id;
 
     @OneToOne
-    @JsonIgnore  // Ignore this in JSON
+    @JsonIgnore 
     private UserAccount userAccount;
 
     private String name;
