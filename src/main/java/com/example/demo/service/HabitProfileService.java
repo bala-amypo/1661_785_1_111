@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.HabitProfile;
+import com.example.demo.model.HabitProfile;
 import com.example.demo.exception.ResourceNotFoundException;
 import java.util.List;
 

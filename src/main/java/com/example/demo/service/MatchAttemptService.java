@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.MatchAttemptRecord;
+import com.example.demo.model.MatchAttemptRecord;
 import com.example.demo.exception.ResourceNotFoundException;
 import java.util.List;
 

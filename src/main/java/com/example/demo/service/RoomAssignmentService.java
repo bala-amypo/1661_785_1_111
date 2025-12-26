@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.RoomAssignmentRecord;
+import com.example.demo.model.RoomAssignmentRecord;
 import com.example.demo.exception.ResourceNotFoundException;
 import java.util.List;
 
