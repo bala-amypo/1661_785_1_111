@@ -3,50 +3,54 @@ package com.example.demo.service.impl;
 import com.example.demo.model.HabitProfile;
 import com.example.demo.repository.HabitProfileRepository;
 import com.example.demo.service.HabitProfileService;
-
-import java.time.LocalDateTime;
+import com.example.demo.exception.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class HabitProfileServiceImpl implements HabitProfileService {
 
-    private final HabitProfileRepository repo;
+    private final HabitProfileRepository habitRepo;
 
-    public HabitProfileServiceImpl(HabitProfileRepository repo) {
-        this.repo = repo;
+    @Autowired
+    public HabitProfileServiceImpl(HabitProfileRepository habitRepo) {
+        this.habitRepo = habitRepo;
     }
 
     @Override
-    public HabitProfile createOrUpdateHabit(HabitProfile h) {
-
-        if (h.getStudyHoursPerDay() != null && h.getStudyHoursPerDay() < 0) {
-            throw new IllegalArgumentException("study hours cannot be negative");
+    public HabitProfile createOrUpdateHabit(HabitProfile habit) {
+        if (habit.getStudyHoursPerDay() < 0) {
+            throw new IllegalArgumentException("Study hours cannot be negative");
         }
-
-        Optional<HabitProfile> existingOpt = repo.findByStudentId(h.getStudentId());
-        if (existingOpt.isPresent()) {
-            HabitProfile existing = existingOpt.get();
-            h.setId(existing.getId());
+        Optional<HabitProfile> existing = habitRepo.findByStudentId(habit.getStudentId());
+        if (existing.isPresent()) {
+            habit.setId(existing.get().getId()); // update existing
         }
-
-        h.setUpdatedAt(LocalDateTime.now());
-        return repo.save(h);
+        return habitRepo.save(habit);
     }
 
     @Override
-    public Optional<HabitProfile> getHabitByStudent(Long studentId) {
-        HabitProfile h = repo.findByStudentId(studentId)
-                .orElseThrow(() -> new RuntimeException("Habit not found"));
-        return Optional.of(h);
+    public Optional<HabitProfile> getHabitByStudentId(Long studentId) {
+        return habitRepo.findByStudentId(studentId);
     }
 
     @Override
-    public Optional<HabitProfile> getHabitById(Long id) {
-        return repo.findById(id);
+    public HabitProfile getHabitById(Long id) {
+        return habitRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("HabitProfile not found with id " + id));
     }
 
     @Override
     public List<HabitProfile> getAllHabitProfiles() {
-        return repo.findAll();
+        return habitRepo.findAll();
+    }
+
+    @Override
+    public void deleteHabit(Long id) {
+        HabitProfile habit = habitRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("HabitProfile not found with id " + id));
+        habitRepo.delete(habit);
     }
 }
