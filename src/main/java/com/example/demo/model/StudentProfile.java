@@ -1,11 +1,6 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 @Entity
 public class StudentProfile {
@@ -14,30 +9,27 @@ public class StudentProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JsonIgnore 
-    private UserAccount userAccount;
+    @Column(unique = true)
+    private String studentId;
 
-    private String name;
-    private Integer age;
-    private String course;
-    private String roomTypePreference;
+    @Column(unique = true)
+    private String email;
+
+    private String fullName;
+    private Boolean active = true;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public UserAccount getUserAccount() { return userAccount; }
-    public void setUserAccount(UserAccount userAccount) { this.userAccount = userAccount; }
+    public String getStudentId() { return studentId; }
+    public void setStudentId(String studentId) { this.studentId = studentId; }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public Integer getAge() { return age; }
-    public void setAge(Integer age) { this.age = age; }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public String getCourse() { return course; }
-    public void setCourse(String course) { this.course = course; }
-
-    public String getRoomTypePreference() { return roomTypePreference; }
-    public void setRoomTypePreference(String roomTypePreference) { this.roomTypePreference = roomTypePreference; }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 }
