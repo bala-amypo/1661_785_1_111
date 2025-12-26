@@ -1,25 +1,16 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
-import jakarta.persistence.*;
 import lombok.*;
+import jakarta.persistence.*;
 
-@Entity
-@Table(name="match_attempt")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class MatchAttemptRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Long initiatorStudentId;
-    private Long candidateStudentId;
-
     private Long resultScoreId;
-
-    @Enumerated(EnumType.STRING)
-    private Status status = Status.PENDING_REVIEW;
-
-    public enum Status { PENDING_REVIEW, MATCHED, COMPLETED }
+    private String status;
 }
