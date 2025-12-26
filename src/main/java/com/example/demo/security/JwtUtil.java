@@ -1,5 +1,6 @@
 package com.example.demo.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
@@ -8,9 +9,9 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final String SECRET_KEY = "mysecretkey"; // change to your secret
+    private final String SECRET_KEY = "mysecretkey"; // replace with your secret
 
-    // Updated method to accept extra claims
+    // Generate token with extra claims
     public String generateToken(String username, String firstName, String lastName, String role) {
         return Jwts.builder()
                 .setSubject(username)
@@ -23,13 +24,26 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Optional: simple token validation method
+    // Extract username from token
+    public String extractUsername(String token) {
+        return extractAllClaims(token).getSubject();
+    }
+
+    // Validate token
     public boolean isTokenValid(String token, String username) {
-        String tokenUsername = Jwts.parser()
+        return extractUsername(token).equals(username) && !isTokenExpired(token);
+    }
+
+    // Check expiration
+    private boolean isTokenExpired(String token) {
+        return extractAllClaims(token).getExpiration().before(new Date());
+    }
+
+    // Extract all claims
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
                 .setSigningKey(SECRET_KEY.getBytes())
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-        return tokenUsername.equals(username);
+                .getBody();
     }
 }
