@@ -1,11 +1,17 @@
 package com.example.demo.service;
 
-import java.util.List;
 import com.example.demo.model.StudentProfile;
+import java.util.*;
 
 public interface StudentProfileService {
-    StudentProfile save(StudentProfile student);
-    List<StudentProfile> getAll();
-    StudentProfile getById(Long id) throws Exception;
-    void deleteById(Long id);
+
+    StudentProfile createStudent(StudentProfile student);
+
+    StudentProfile getStudentById(Long id);
+
+    List<StudentProfile> getAllStudents();
+
+    StudentProfile updateStudentStatus(Long id, boolean active);
+
+    Optional<StudentProfile> findByStudentId(String studentId);
 }

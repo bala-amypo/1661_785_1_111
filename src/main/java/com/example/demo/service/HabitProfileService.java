@@ -1,11 +1,15 @@
 package com.example.demo.service;
 
-import java.util.List;
 import com.example.demo.model.HabitProfile;
+import java.util.*;
 
 public interface HabitProfileService {
-    HabitProfile save(HabitProfile habit);
-    List<HabitProfile> getAll();
-    HabitProfile getById(Long id) throws Exception;
-    void deleteById(Long id);
+
+    HabitProfile createOrUpdateHabit(HabitProfile habit);
+
+    Optional<HabitProfile> getHabitById(Long id);
+
+    HabitProfile getHabitByStudent(Long studentId);
+
+    List<HabitProfile> getAllHabitProfiles();
 }
