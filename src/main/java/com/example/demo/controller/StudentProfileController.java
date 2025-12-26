@@ -2,39 +2,31 @@ package com.example.demo.controller;
 
 import com.example.demo.model.StudentProfile;
 import com.example.demo.service.StudentProfileService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import java.util.*;
 
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/student")
 public class StudentProfileController {
 
     private final StudentProfileService service;
 
-    public StudentProfileController(StudentProfileService service) {
-        this.service = service;
-    }
+    public StudentProfileController(StudentProfileService service){ this.service = service; }
 
-    @PostMapping
-    public StudentProfile create(@RequestBody StudentProfile student) {
-        return service.createStudent(student);
+    @PostMapping("/save")
+    public ResponseEntity<StudentProfile> create(@RequestBody StudentProfile s){
+        StudentProfile created = service.createStudent(s);
+        return ResponseEntity.ok(created);
     }
 
     @GetMapping("/{id}")
-    public StudentProfile getById(@PathVariable Long id) {
-        return service.getStudentById(id);
+    public ResponseEntity<StudentProfile> get(@PathVariable Long id){
+        return ResponseEntity.ok(service.getStudentById(id));
     }
 
-    @GetMapping
-    public List<StudentProfile> getAll() {
-        return service.getAllStudents();
-    }
-
-    @PutMapping("/{id}/status")
-    public StudentProfile updateStatus(
-            @PathVariable Long id,
-            @RequestParam boolean active) {
-        return service.updateStudentStatus(id, active);
+    @GetMapping("/all")
+    public ResponseEntity<List<StudentProfile>> getAll(){
+        return ResponseEntity.ok(service.getAllStudents());
     }
 }

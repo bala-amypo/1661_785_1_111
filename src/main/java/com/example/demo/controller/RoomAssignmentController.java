@@ -2,45 +2,30 @@ package com.example.demo.controller;
 
 import com.example.demo.model.RoomAssignmentRecord;
 import com.example.demo.service.RoomAssignmentService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import java.util.*;
 
 @RestController
-@RequestMapping("/api/room-assignments")
+@RequestMapping("/room")
 public class RoomAssignmentController {
 
     private final RoomAssignmentService service;
 
-    public RoomAssignmentController(RoomAssignmentService service) {
-        this.service = service;
+    public RoomAssignmentController(RoomAssignmentService service){ this.service = service; }
+
+    @PostMapping("/assign")
+    public ResponseEntity<RoomAssignmentRecord> assign(@RequestBody RoomAssignmentRecord r){
+        return ResponseEntity.ok(service.assignRoom(r));
     }
 
-    @PostMapping
-    public RoomAssignmentRecord assign(@RequestBody RoomAssignmentRecord record) {
-        return service.assignRoom(record);
+    @GetMapping("/student/{id}")
+    public ResponseEntity<List<RoomAssignmentRecord>> getByStudent(@PathVariable Long id){
+        return ResponseEntity.ok(service.getAssignmentsByStudent(id));
     }
 
-    @PutMapping("/{id}/status")
-    public RoomAssignmentRecord updateStatus(
-            @PathVariable Long id,
-            @RequestParam String status) {
-        return service.updateStatus(id, status);
-    }
-
-    @GetMapping("/{id}")
-    public RoomAssignmentRecord getById(@PathVariable Long id) {
-        return service.getAssignmentById(id);
-    }
-
-    @GetMapping("/student/{studentId}")
-    public List<RoomAssignmentRecord> getByStudent(
-            @PathVariable Long studentId) {
-        return service.getAssignmentsByStudent(studentId);
-    }
-
-    @GetMapping
-    public List<RoomAssignmentRecord> getAll() {
-        return service.getAllAssignments();
+    @GetMapping("/all")
+    public ResponseEntity<List<RoomAssignmentRecord>> getAll(){
+        return ResponseEntity.ok(service.getAllAssignments());
     }
 }
