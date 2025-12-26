@@ -1,32 +1,27 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.StudentProfile;
+import com.example.demo.entity.StudentProfile;
 import com.example.demo.service.StudentProfileService;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import java.util.*;
+import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
+@RequiredArgsConstructor
 public class StudentProfileController {
-
     private final StudentProfileService service;
 
-    public StudentProfileController(StudentProfileService service){ this.service = service; }
-
     @PostMapping("/save")
-    public ResponseEntity<StudentProfile> create(@RequestBody StudentProfile s){
-        StudentProfile created = service.createStudent(s);
-        return ResponseEntity.ok(created);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<StudentProfile> get(@PathVariable Long id){
-        return ResponseEntity.ok(service.getStudentById(id));
-    }
+    public StudentProfile save(@RequestBody StudentProfile s){ return service.save(s); }
 
     @GetMapping("/all")
-    public ResponseEntity<List<StudentProfile>> getAll(){
-        return ResponseEntity.ok(service.getAllStudents());
-    }
+    public List<StudentProfile> getAll(){ return service.getAll(); }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentProfile> getById(@PathVariable Long id){ return ResponseEntity.ok(service.getById(id)); }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){ service.delete(id); }
 }

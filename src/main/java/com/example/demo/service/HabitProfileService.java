@@ -1,18 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.model.HabitProfile;
-import java.util.Optional;
-import java.util.List;
+import com.example.demo.entity.HabitProfile;
 
 public interface HabitProfileService {
-
-    HabitProfile createOrUpdateHabit(HabitProfile habit);
-
-    Optional<HabitProfile> getHabitByStudentId(Long studentId);
-
+    HabitProfile save(HabitProfile h);
     HabitProfile getHabitById(Long id);
-
-    List<HabitProfile> getAllHabitProfiles();
-
-    void deleteHabit(Long id); // added
+    HabitProfile getHabitByStudent(Long studentId);
+    void deleteHabit(Long id);
 }

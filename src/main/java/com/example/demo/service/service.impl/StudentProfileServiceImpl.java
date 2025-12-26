@@ -1,40 +1,26 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.StudentProfile;
+import com.example.demo.entity.StudentProfile;
 import com.example.demo.repository.StudentProfileRepository;
 import com.example.demo.service.StudentProfileService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.*;
+import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StudentProfileServiceImpl implements StudentProfileService {
-
     private final StudentProfileRepository repo;
 
-    public StudentProfileServiceImpl(StudentProfileRepository repo) { this.repo = repo; }
+    @Override
+    public StudentProfile save(StudentProfile s) { return repo.save(s); }
 
     @Override
-    public StudentProfile createStudent(StudentProfile s) {
-        repo.findByStudentId(s.getStudentId()).ifPresent(st -> { throw new IllegalArgumentException("studentId exists"); });
-        repo.findByEmail(s.getEmail()).ifPresent(st -> { throw new IllegalArgumentException("email exists"); });
-        return repo.save(s);
-    }
+    public List<StudentProfile> getAll() { return repo.findAll(); }
 
     @Override
-    public StudentProfile getStudentById(Long id) {
-        return repo.findById(id).orElseThrow(() -> new RuntimeException("not found"));
-    }
+    public StudentProfile getById(Long id) { return repo.findById(id).orElse(null); }
 
     @Override
-    public StudentProfile updateStudentStatus(Long id, boolean active) {
-        StudentProfile s = getStudentById(id);
-        s.setActive(active);
-        return repo.save(s);
-    }
-
-    @Override
-    public List<StudentProfile> getAllStudents() { return repo.findAll(); }
-
-    @Override
-    public Optional<StudentProfile> findByStudentId(String studentId) { return repo.findByStudentId(studentId); }
+    public void delete(Long id) { repo.deleteById(id); }
 }

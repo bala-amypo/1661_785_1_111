@@ -1,16 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.model.MatchAttemptRecord;
-
-import java.util.List;
+import com.example.demo.entity.MatchAttemptRecord;
 
 public interface MatchAttemptService {
-
-    MatchAttemptRecord logMatchAttempt(MatchAttemptRecord attempt);
-
-    MatchAttemptRecord updateAttemptStatus(Long attemptId, String status);
-
-    List<MatchAttemptRecord> getAttemptsByStudent(Long studentId);
-
-    List<MatchAttemptRecord> getAllMatchAttempts();
+    MatchAttemptRecord save(MatchAttemptRecord m);
 }
