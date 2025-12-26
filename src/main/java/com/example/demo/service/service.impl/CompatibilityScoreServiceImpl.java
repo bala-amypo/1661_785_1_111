@@ -67,6 +67,11 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
     public List<CompatibilityScoreRecord> getScoresForStudent(Long studentId) {
         return repository.findByStudentAIdOrStudentBId(studentId, studentId);
     }
+     @Override
+public CompatibilityScoreRecord saveScore(
+        CompatibilityScoreRecord score) {
+    return repository.save(score);
+}
 
     @Override
     public CompatibilityScoreRecord getScoreById(Long id) {
