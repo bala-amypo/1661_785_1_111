@@ -1,23 +1,19 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.CompatibilityScoreRecord;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CompatibilityScoreRecordRepository
-        extends JpaRepository<CompatibilityScoreRecord, Long> {
+public interface CompatibilityScoreRecordRepository {
 
-    // already used
-    List<CompatibilityScoreRecord> findByStudentAIdOrStudentBId(
-            Long studentAId,
-            Long studentBId
-    );
+    Optional<CompatibilityScoreRecord> findByStudentAIdAndStudentBId(Long aId, Long bId);
 
-    // 👉 ADD THIS (FOR YOUR CURRENT ERROR)
-    Optional<CompatibilityScoreRecord> findByStudentAIdAndStudentBId(
-            Long studentAId,
-            Long studentBId
-    );
+    List<CompatibilityScoreRecord> findByStudentAIdOrStudentBId(Long studentId1, Long studentId2);
+
+    Optional<CompatibilityScoreRecord> findById(Long id);
+
+    List<CompatibilityScoreRecord> findAll();
+
+    CompatibilityScoreRecord save(CompatibilityScoreRecord r);
 }
