@@ -1,11 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.model.MatchAttemptRecord;
-import com.example.demo.exception.ResourceNotFoundException;
 import java.util.List;
 
 public interface MatchAttemptService {
-    MatchAttemptRecord saveAttempt(MatchAttemptRecord attempt);
-    MatchAttemptRecord getAttemptById(Long id) throws ResourceNotFoundException;
-    List<MatchAttemptRecord> getAllAttempts();
+    MatchAttemptRecord logMatchAttempt(MatchAttemptRecord attempt);
+    MatchAttemptRecord updateAttemptStatus(Long id, String status);
+    List<MatchAttemptRecord> getAttemptsByStudent(Long studentId);
+    List<MatchAttemptRecord> getAllMatchAttempts();
 }

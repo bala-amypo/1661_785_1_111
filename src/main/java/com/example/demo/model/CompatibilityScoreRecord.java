@@ -1,18 +1,46 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "compatibility_score")
-@Data
+@Table(name = "compatibility_score_records")
 public class CompatibilityScoreRecord {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Long studentId1;
-    private Long studentId2;
+    
+    private Long studentAId;
+    private Long studentBId;
     private Double score;
+    private LocalDateTime computedAt;
+    
+    @Column(columnDefinition = "TEXT")
+    private String detailsJson;
+    
+    @Enumerated(EnumType.STRING)
+    private CompatibilityLevel compatibilityLevel;
+
+    public enum CompatibilityLevel { POOR, FAIR, GOOD, EXCELLENT }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    
+    public Long getStudentAId() { return studentAId; }
+    public void setStudentAId(Long studentAId) { this.studentAId = studentAId; }
+    
+    public Long getStudentBId() { return studentBId; }
+    public void setStudentBId(Long studentBId) { this.studentBId = studentBId; }
+    
+    public Double getScore() { return score; }
+    public void setScore(Double score) { this.score = score; }
+    
+    public LocalDateTime getComputedAt() { return computedAt; }
+    public void setComputedAt(LocalDateTime computedAt) { this.computedAt = computedAt; }
+    
+    public String getDetailsJson() { return detailsJson; }
+    public void setDetailsJson(String detailsJson) { this.detailsJson = detailsJson; }
+    
+    public CompatibilityLevel getCompatibilityLevel() { return compatibilityLevel; }
+    public void setCompatibilityLevel(CompatibilityLevel compatibilityLevel) { this.compatibilityLevel = compatibilityLevel; }
 }
