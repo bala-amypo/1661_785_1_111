@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.MatchAttemptRecord;
+import com.example.demo.model.MatchAttemptRecord;
 import com.example.demo.service.MatchAttemptService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

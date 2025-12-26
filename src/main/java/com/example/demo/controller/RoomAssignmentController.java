@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.RoomAssignmentRecord;
+import com.example.demo.model.RoomAssignmentRecord;
 import com.example.demo.service.RoomAssignmentService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

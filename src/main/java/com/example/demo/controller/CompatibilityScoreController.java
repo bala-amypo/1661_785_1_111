@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.CompatibilityScoreRecord;
+import com.example.demo.model.CompatibilityScoreRecord;
 import com.example.demo.service.CompatibilityScoreService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
