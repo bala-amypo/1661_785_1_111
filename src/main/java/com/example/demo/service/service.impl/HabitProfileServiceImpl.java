@@ -5,7 +5,8 @@ import com.example.demo.repository.HabitProfileRepository;
 import com.example.demo.service.HabitProfileService;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 public class HabitProfileServiceImpl implements HabitProfileService {
 
@@ -16,32 +17,32 @@ public class HabitProfileServiceImpl implements HabitProfileService {
     }
 
     @Override
-    public HabitProfile createOrUpdateHabit(HabitProfile habit) {
+    public HabitProfile createOrUpdateHabit(HabitProfile h) {
 
-        if (habit.getStudyHoursPerDay() != null && habit.getStudyHoursPerDay() < 0) {
-            throw new IllegalArgumentException("study hours invalid");
+        if (h.getStudyHoursPerDay() != null && h.getStudyHoursPerDay() < 0) {
+            throw new IllegalArgumentException("study hours cannot be negative");
         }
 
-        Optional<HabitProfile> existing = repo.findByStudentId(habit.getStudentId());
-
-        if (existing.isPresent()) {
-            HabitProfile e = existing.get();
-            habit.setId(e.getId());
+        Optional<HabitProfile> existingOpt = repo.findByStudentId(h.getStudentId());
+        if (existingOpt.isPresent()) {
+            HabitProfile existing = existingOpt.get();
+            h.setId(existing.getId());
         }
 
-        habit.setUpdatedAt(LocalDateTime.now());
-        return repo.save(habit);
+        h.setUpdatedAt(LocalDateTime.now());
+        return repo.save(h);
+    }
+
+    @Override
+    public Optional<HabitProfile> getHabitByStudent(Long studentId) {
+        HabitProfile h = repo.findByStudentId(studentId)
+                .orElseThrow(() -> new RuntimeException("Habit not found"));
+        return Optional.of(h);
     }
 
     @Override
     public Optional<HabitProfile> getHabitById(Long id) {
         return repo.findById(id);
-    }
-
-    @Override
-    public HabitProfile getHabitByStudent(Long studentId) {
-        return repo.findByStudentId(studentId)
-                .orElseThrow(() -> new RuntimeException("habit not found"));
     }
 
     @Override
