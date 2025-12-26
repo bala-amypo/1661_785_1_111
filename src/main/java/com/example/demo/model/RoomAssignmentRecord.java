@@ -1,20 +1,18 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
+@Table(name = "room_assignment")
 @Data
 public class RoomAssignmentRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long studentAId;
-    private Long studentBId;
-
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    public enum Status { ACTIVE, INACTIVE }
+    private Long studentId;
+    private String roomNumber;
+    private String building;
 }

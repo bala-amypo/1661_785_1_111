@@ -1,23 +1,18 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "match_attempt")
 @Data
 public class MatchAttemptRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long studentAId;
-    private Long studentBId;
-    private Long resultScoreId;
-    private LocalDateTime attemptedAt;
-
-    @Enumerated(EnumType.STRING)
-    private Status status;
-
-    public enum Status { PENDING, SUCCESS, FAIL }
+    private Long studentId;
+    private Long roommateId;
+    private Boolean success;
 }

@@ -1,23 +1,18 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "compatibility_score")
 @Data
 public class CompatibilityScoreRecord {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long studentAId;
-    private Long studentBId;
-    private double score;
-    private LocalDateTime computedAt;
-
-    @Enumerated(EnumType.STRING)
-    private CompatibilityLevel compatibilityLevel;
-
-    public enum CompatibilityLevel { HIGH, MEDIUM, LOW }
+    private Long studentId1;
+    private Long studentId2;
+    private Double score;
 }

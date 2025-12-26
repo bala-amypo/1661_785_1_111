@@ -1,19 +1,17 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "habit_profile")
 @Data
 public class HabitProfile {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long studentId;
-    private int studyHoursPerDay;
-    private boolean nightOwl;
-    private boolean earlyRiser;
-    private LocalDateTime updatedAt;
+    private String habitName;
+    private String description;
 }

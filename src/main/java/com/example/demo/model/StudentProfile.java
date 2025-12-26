@@ -1,15 +1,19 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
+@Table(name = "student_profile")
 @Data
 public class StudentProfile {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studentId;
+    private Long id;
+
     private String name;
     private String email;
-    private boolean active;
+    private Integer age;
+    private String gender;
 }
