@@ -1,17 +1,20 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
-import lombok.*;
 import jakarta.persistence.*;
+import lombok.Data;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Data
 public class RoomAssignmentRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long studentAId;
     private Long studentBId;
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    public enum Status { ACTIVE, INACTIVE }
 }

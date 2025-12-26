@@ -1,18 +1,19 @@
-package com.example.demo.entity;
+package com.example.demo.model;
 
-import lombok.*;
 import jakarta.persistence.*;
+import lombok.Data;
 import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
+@Data
 public class HabitProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Long studentId;
     private int studyHoursPerDay;
+    private boolean nightOwl;
+    private boolean earlyRiser;
     private LocalDateTime updatedAt;
 }
