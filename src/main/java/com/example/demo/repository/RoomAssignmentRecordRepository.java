@@ -8,5 +8,8 @@ import java.util.List;
 public interface RoomAssignmentRecordRepository
         extends JpaRepository<RoomAssignmentRecord, Long> {
 
-    List<RoomAssignmentRecord> findByRoomNumber(String roomNumber);
+    List<RoomAssignmentRecord> findByStudentAIdOrStudentBId(
+            Long studentAId,
+            Long studentBId
+    );
 }
