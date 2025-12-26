@@ -20,10 +20,6 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
         this.repository = repository;
         this.habitRepository = habitRepository;
     }
- @Override
-public CompatibilityScoreRecord saveScore(CompatibilityScoreRecord score) {
-    return repository.save(score);
-}
 
     @Override
     public CompatibilityScoreRecord computeScore(Long studentAId, Long studentBId) {
