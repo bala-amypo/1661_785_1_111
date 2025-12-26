@@ -2,39 +2,39 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.AuthRequest;
 import com.example.demo.security.JwtUtil;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-@RestController
-@RequestMapping("/auth")
+@Controller
 public class AuthController {
 
     private final JwtUtil jwtUtil;
-    private static final Map<String, AuthRequest> USERS = new HashMap<>();
+
+    private final ConcurrentHashMap<String, AuthRequest> users = new ConcurrentHashMap<>();
 
     public AuthController(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody AuthRequest req) {
-
-        if (USERS.containsKey(req.getUsername())) {
-            return ResponseEntity.badRequest().body("User already exists");
+    // Register a user (mock)
+    public ResponseEntity<?> register(AuthRequest request) {
+        if (users.containsKey(request.getUsername())) {
+            return ResponseEntity.badRequest().body("User exists");
         }
+        users.put(request.getUsername(), request);
+        return ResponseEntity.ok("Registered");
+    }
 
-        USERS.put(req.getUsername(), req);
-
-        String token = jwtUtil.generateToken(
-                req.getUsername(),
-                req.getRole(),
-                req.getEmail(),
-                "1"
-        );
-
+    // Login
+    public ResponseEntity<?> login(AuthRequest request) {
+        AuthRequest user = users.get(request.getUsername());
+        if (user == null || !user.getPassword().equals(request.getPassword())) {
+            return ResponseEntity.status(401).body("Invalid credentials");
+        }
+        String token = jwtUtil.generateToken(user.getUsername(), user.getRole(), user.getEmail(), "1");
         return ResponseEntity.ok(token);
     }
 }
