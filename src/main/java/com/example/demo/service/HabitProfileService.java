@@ -1,10 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.HabitProfile;
+import com.example.demo.exception.ResourceNotFoundException;
+import java.util.List;
 
 public interface HabitProfileService {
-    HabitProfile save(HabitProfile h);
-    HabitProfile getHabitById(Long id);
-    HabitProfile getHabitByStudent(Long studentId);
-    void deleteHabit(Long id);
+    HabitProfile saveHabitProfile(HabitProfile habitProfile);
+    HabitProfile getHabitProfileById(Long id) throws ResourceNotFoundException;
+    List<HabitProfile> getAllHabitProfiles();
 }

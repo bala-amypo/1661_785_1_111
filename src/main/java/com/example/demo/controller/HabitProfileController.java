@@ -2,22 +2,31 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.HabitProfile;
 import com.example.demo.service.HabitProfileService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
+import java.util.List;
 
 @RestController
-@RequestMapping("/habit")
-@RequiredArgsConstructor
+@RequestMapping("/habit-profile")
 public class HabitProfileController {
+
     private final HabitProfileService service;
 
+    public HabitProfileController(HabitProfileService service) {
+        this.service = service;
+    }
+
     @PostMapping("/save")
-    public HabitProfile save(@RequestBody HabitProfile h){ return service.save(h); }
+    public HabitProfile saveHabitProfile(@RequestBody HabitProfile habitProfile) {
+        return service.saveHabitProfile(habitProfile);
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<HabitProfile> getById(@PathVariable Long id){ return ResponseEntity.ok(service.getHabitById(id)); }
+    public HabitProfile getHabitProfile(@PathVariable Long id) {
+        return service.getHabitProfileById(id);
+    }
 
-    @GetMapping("/student/{studentId}")
-    public ResponseEntity<HabitProfile> getByStudent(@PathVariable Long studentId){ return ResponseEntity.ok(service.getHabitByStudent(studentId)); }
+    @GetMapping("/all")
+    public List<HabitProfile> getAllHabitProfiles() {
+        return service.getAllHabitProfiles();
+    }
 }

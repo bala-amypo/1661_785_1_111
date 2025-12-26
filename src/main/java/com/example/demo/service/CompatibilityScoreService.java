@@ -1,7 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.CompatibilityScoreRecord;
+import com.example.demo.exception.ResourceNotFoundException;
+import java.util.List;
 
 public interface CompatibilityScoreService {
-    CompatibilityScoreRecord save(CompatibilityScoreRecord s);
+    CompatibilityScoreRecord saveScore(CompatibilityScoreRecord score);
+    CompatibilityScoreRecord getScoreById(Long id) throws ResourceNotFoundException;
+    List<CompatibilityScoreRecord> getAllScores();
 }

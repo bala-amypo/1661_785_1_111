@@ -1,11 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.StudentProfile;
+import com.example.demo.exception.ResourceNotFoundException;
 import java.util.List;
 
 public interface StudentProfileService {
-    StudentProfile save(StudentProfile s);
-    List<StudentProfile> getAll();
-    StudentProfile getById(Long id);
-    void delete(Long id);
+    StudentProfile saveStudentProfile(StudentProfile studentProfile);
+    StudentProfile getStudentProfileById(Long id) throws ResourceNotFoundException;
+    List<StudentProfile> getAllStudentProfiles();
 }

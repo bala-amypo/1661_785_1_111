@@ -2,26 +2,31 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.StudentProfile;
 import com.example.demo.service.StudentProfileService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
-@RequestMapping("/student")
-@RequiredArgsConstructor
+@RequestMapping("/student-profile")
 public class StudentProfileController {
+
     private final StudentProfileService service;
 
-    @PostMapping("/save")
-    public StudentProfile save(@RequestBody StudentProfile s){ return service.save(s); }
+    public StudentProfileController(StudentProfileService service) {
+        this.service = service;
+    }
 
-    @GetMapping("/all")
-    public List<StudentProfile> getAll(){ return service.getAll(); }
+    @PostMapping("/save")
+    public StudentProfile saveStudentProfile(@RequestBody StudentProfile studentProfile) {
+        return service.saveStudentProfile(studentProfile);
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentProfile> getById(@PathVariable Long id){ return ResponseEntity.ok(service.getById(id)); }
+    public StudentProfile getStudentProfile(@PathVariable Long id) {
+        return service.getStudentProfileById(id);
+    }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){ service.delete(id); }
+    @GetMapping("/all")
+    public List<StudentProfile> getAllProfiles() {
+        return service.getAllStudentProfiles();
+    }
 }

@@ -1,25 +1,34 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.HabitProfile;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.HabitProfileRepository;
 import com.example.demo.service.HabitProfileService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class HabitProfileServiceImpl implements HabitProfileService {
-    private final HabitProfileRepository repo;
+
+    private final HabitProfileRepository repository;
+
+    public HabitProfileServiceImpl(HabitProfileRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
-    public HabitProfile save(HabitProfile h) { return repo.save(h); }
+    public HabitProfile saveHabitProfile(HabitProfile habitProfile) {
+        return repository.save(habitProfile);
+    }
 
     @Override
-    public HabitProfile getHabitById(Long id) { return repo.findById(id).orElse(null); }
+    public HabitProfile getHabitProfileById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("HabitProfile not found with id: " + id));
+    }
 
     @Override
-    public HabitProfile getHabitByStudent(Long studentId) { return repo.findByStudentId(studentId).orElse(null); }
-
-    @Override
-    public void deleteHabit(Long id) { repo.deleteById(id); }
+    public List<HabitProfile> getAllHabitProfiles() {
+        return repository.findAll();
+    }
 }

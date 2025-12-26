@@ -1,16 +1,34 @@
 package com.example.demo.service.impl;
 
 import com.example.demo.entity.CompatibilityScoreRecord;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.repository.CompatibilityScoreRecordRepository;
 import com.example.demo.service.CompatibilityScoreService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class CompatibilityScoreServiceImpl implements CompatibilityScoreService {
-    private final CompatibilityScoreRecordRepository repo;
+
+    private final CompatibilityScoreRecordRepository repository;
+
+    public CompatibilityScoreServiceImpl(CompatibilityScoreRecordRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
-    public CompatibilityScoreRecord save(CompatibilityScoreRecord s) { return repo.save(s); }
+    public CompatibilityScoreRecord saveScore(CompatibilityScoreRecord score) {
+        return repository.save(score);
+    }
+
+    @Override
+    public CompatibilityScoreRecord getScoreById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("CompatibilityScoreRecord not found with id: " + id));
+    }
+
+    @Override
+    public List<CompatibilityScoreRecord> getAllScores() {
+        return repository.findAll();
+    }
 }
