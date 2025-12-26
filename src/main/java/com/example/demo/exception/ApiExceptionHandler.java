@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class APIExceptionHandler {
+public class ApiExceptionHandler {
 
-    // Handle ResourceNotFoundException
+    
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> handleResourceNotFound(ResourceNotFoundException ex) {
         Map<String, Object> body = new HashMap<>();
