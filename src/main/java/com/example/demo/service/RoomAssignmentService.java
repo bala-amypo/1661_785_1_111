@@ -1,11 +1,12 @@
 package com.example.demo.service;
 
 import com.example.demo.model.RoomAssignmentRecord;
-import com.example.demo.exception.ResourceNotFoundException;
 import java.util.List;
 
 public interface RoomAssignmentService {
-    RoomAssignmentRecord saveAssignment(RoomAssignmentRecord assignment);
-    RoomAssignmentRecord getAssignmentById(Long id) throws ResourceNotFoundException;
+    RoomAssignmentRecord assignRoom(RoomAssignmentRecord assignment);
+    RoomAssignmentRecord updateStatus(Long id, String status);
+    List<RoomAssignmentRecord> getAssignmentsByStudent(Long studentId);
+    RoomAssignmentRecord getAssignmentById(Long id);
     List<RoomAssignmentRecord> getAllAssignments();
 }

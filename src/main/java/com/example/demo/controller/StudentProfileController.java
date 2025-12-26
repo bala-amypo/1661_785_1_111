@@ -2,31 +2,25 @@ package com.example.demo.controller;
 
 import com.example.demo.model.StudentProfile;
 import com.example.demo.service.StudentProfileService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
-@RequestMapping("/student-profile")
+@RequestMapping("/api/students")
 public class StudentProfileController {
-
     private final StudentProfileService service;
 
     public StudentProfileController(StudentProfileService service) {
         this.service = service;
     }
 
-    @PostMapping("/save")
-    public StudentProfile saveStudentProfile(@RequestBody StudentProfile studentProfile) {
-        return service.saveStudentProfile(studentProfile);
+    @PostMapping
+    public ResponseEntity<StudentProfile> create(@RequestBody StudentProfile student) {
+        return ResponseEntity.ok(service.createStudent(student));
     }
 
     @GetMapping("/{id}")
-    public StudentProfile getStudentProfile(@PathVariable Long id) {
-        return service.getStudentProfileById(id);
-    }
-
-    @GetMapping("/all")
-    public List<StudentProfile> getAllProfiles() {
-        return service.getAllStudentProfiles();
+    public ResponseEntity<StudentProfile> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getStudentById(id));
     }
 }
