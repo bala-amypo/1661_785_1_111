@@ -1,37 +1,39 @@
 package com.example.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
-
 import com.example.demo.model.HabitProfile;
 import com.example.demo.service.HabitProfileService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/habit")
+@RequestMapping("/api/habits")
 public class HabitProfileController {
 
-    @Autowired
-    private HabitProfileService service;
+    private final HabitProfileService service;
 
-    @PostMapping
-    public HabitProfile createHabit(@RequestBody HabitProfile habit) {
-        return service.save(habit);
+    public HabitProfileController(HabitProfileService service) {
+        this.service = service;
     }
 
-    @GetMapping
-    public List<HabitProfile> getAllHabits() {
-        return service.getAll();
+    @PostMapping
+    public HabitProfile save(@RequestBody HabitProfile habit) {
+        return service.createOrUpdateHabit(habit);
     }
 
     @GetMapping("/{id}")
-    public HabitProfile getHabitById(@PathVariable Long id) throws Exception {
-        return service.getById(id);
+    public HabitProfile getById(@PathVariable Long id) {
+        return service.getHabitById(id)
+                .orElseThrow(() -> new RuntimeException("habit not found"));
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteHabit(@PathVariable Long id) {
-        service.deleteById(id);
-        return "Deleted successfully";
+    @GetMapping("/student/{studentId}")
+    public HabitProfile getByStudent(@PathVariable Long studentId) {
+        return service.getHabitByStudent(studentId);
+    }
+
+    @GetMapping
+    public List<HabitProfile> getAll() {
+        return service.getAllHabitProfiles();
     }
 }

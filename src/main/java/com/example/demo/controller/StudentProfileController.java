@@ -1,37 +1,40 @@
 package com.example.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
-
 import com.example.demo.model.StudentProfile;
 import com.example.demo.service.StudentProfileService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/api/students")
 public class StudentProfileController {
 
-    @Autowired
-    private StudentProfileService service;
+    private final StudentProfileService service;
 
-    @PostMapping
-    public StudentProfile createStudent(@RequestBody StudentProfile student) {
-        return service.save(student);
+    public StudentProfileController(StudentProfileService service) {
+        this.service = service;
     }
 
-    @GetMapping
-    public List<StudentProfile> getAllStudents() {
-        return service.getAll();
+    @PostMapping
+    public StudentProfile create(@RequestBody StudentProfile student) {
+        return service.createStudent(student);
     }
 
     @GetMapping("/{id}")
-    public StudentProfile getStudentById(@PathVariable Long id) throws Exception {
-        return service.getById(id);
+    public StudentProfile getById(@PathVariable Long id) {
+        return service.getStudentById(id);
     }
 
-    @DeleteMapping("/{id}")
-    public String deleteStudent(@PathVariable Long id) {
-        service.deleteById(id);
-        return "Deleted successfully";
+    @GetMapping
+    public List<StudentProfile> getAll() {
+        return service.getAllStudents();
+    }
+
+    @PutMapping("/{id}/status")
+    public StudentProfile updateStatus(
+            @PathVariable Long id,
+            @RequestParam boolean active) {
+        return service.updateStudentStatus(id, active);
     }
 }
