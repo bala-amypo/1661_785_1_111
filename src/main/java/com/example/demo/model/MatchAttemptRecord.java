@@ -1,9 +1,10 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "match_attempt_records")
+@Table(name = "match_attempts")
 public class MatchAttemptRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,9 +16,11 @@ public class MatchAttemptRecord {
     
     @Enumerated(EnumType.STRING)
     private Status status = Status.PENDING_REVIEW;
-
+    
+    private LocalDateTime attemptedAt = LocalDateTime.now();
+    
     public enum Status { PENDING_REVIEW, MATCHED, REJECTED }
-
+    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     
@@ -32,4 +35,7 @@ public class MatchAttemptRecord {
     
     public Status getStatus() { return status; }
     public void setStatus(Status status) { this.status = status; }
+    
+    public LocalDateTime getAttemptedAt() { return attemptedAt; }
+    public void setAttemptedAt(LocalDateTime attemptedAt) { this.attemptedAt = attemptedAt; }
 }

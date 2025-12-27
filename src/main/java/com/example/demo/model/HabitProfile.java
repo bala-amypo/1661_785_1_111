@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -10,7 +10,9 @@ public class HabitProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @Column(nullable = false)
     private Long studentId;
+    
     private Integer studyHoursPerDay;
     
     @Enumerated(EnumType.STRING)
@@ -25,13 +27,14 @@ public class HabitProfile {
     @Enumerated(EnumType.STRING)
     private SocialPreference socialPreference;
     
-    private LocalDateTime updatedAt;
-
+    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime updatedAt = LocalDateTime.now();
+    
     public enum SleepSchedule { EARLY, REGULAR, LATE }
     public enum CleanlinessLevel { LOW, MEDIUM, HIGH }
     public enum NoiseTolerance { LOW, MEDIUM, HIGH }
     public enum SocialPreference { INTROVERT, BALANCED, EXTROVERT }
-
+    
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     
@@ -39,7 +42,12 @@ public class HabitProfile {
     public void setStudentId(Long studentId) { this.studentId = studentId; }
     
     public Integer getStudyHoursPerDay() { return studyHoursPerDay; }
-    public void setStudyHoursPerDay(Integer studyHoursPerDay) { this.studyHoursPerDay = studyHoursPerDay; }
+    public void setStudyHoursPerDay(Integer studyHoursPerDay) { 
+        if (studyHoursPerDay != null && studyHoursPerDay < 0) {
+            throw new IllegalArgumentException("study hours must be non-negative");
+        }
+        this.studyHoursPerDay = studyHoursPerDay; 
+    }
     
     public SleepSchedule getSleepSchedule() { return sleepSchedule; }
     public void setSleepSchedule(SleepSchedule sleepSchedule) { this.sleepSchedule = sleepSchedule; }
@@ -52,6 +60,9 @@ public class HabitProfile {
     
     public SocialPreference getSocialPreference() { return socialPreference; }
     public void setSocialPreference(SocialPreference socialPreference) { this.socialPreference = socialPreference; }
+    
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
     
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
