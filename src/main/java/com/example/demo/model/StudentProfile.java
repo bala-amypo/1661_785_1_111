@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,7 +19,8 @@ public class StudentProfile {
     private String fullName;
     private Boolean active = true;
     private LocalDateTime createdAt = LocalDateTime.now();
-    
+    private LocalDateTime updatedAt = LocalDateTime.now();
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     
@@ -37,4 +38,7 @@ public class StudentProfile {
     
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }

@@ -1,10 +1,10 @@
 package com.example.demo.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "compatibility_scores")
+@Table(name = "compatibility_score_records")
 public class CompatibilityScoreRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,11 +17,13 @@ public class CompatibilityScoreRecord {
     @Enumerated(EnumType.STRING)
     private CompatibilityLevel compatibilityLevel;
     
+    @Column(columnDefinition = "TEXT")
     private String detailsJson;
+    
     private LocalDateTime computedAt = LocalDateTime.now();
-    
-    public enum CompatibilityLevel { POOR, FAIR, GOOD, VERY_GOOD, EXCELLENT }
-    
+
+    public enum CompatibilityLevel { POOR, FAIR, GOOD, EXCELLENT }
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     

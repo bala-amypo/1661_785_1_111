@@ -1,10 +1,10 @@
 package com.example.demo.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "room_assignments")
+@Table(name = "room_assignment_records")
 public class RoomAssignmentRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,9 +18,9 @@ public class RoomAssignmentRecord {
     private Status status = Status.ACTIVE;
     
     private LocalDateTime assignedAt = LocalDateTime.now();
-    
+
     public enum Status { ACTIVE, COMPLETED, CANCELLED }
-    
+
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
     
