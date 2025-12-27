@@ -14,27 +14,27 @@ import java.util.Optional;
 public class CompatibilityScoreServiceImpl implements CompatibilityScoreService {
     private final CompatibilityScoreRecordRepository repository;
     private final HabitProfileRepository habitRepository;
-    
+
     public CompatibilityScoreServiceImpl(CompatibilityScoreRecordRepository repository, 
                                        HabitProfileRepository habitRepository) {
         this.repository = repository;
         this.habitRepository = habitRepository;
     }
-    
+
     @Override
     public CompatibilityScoreRecord computeScore(Long studentAId, Long studentBId) {
         if (studentAId.equals(studentBId)) {
             throw new IllegalArgumentException("Cannot compute score for same student");
         }
-        
+
         HabitProfile habitA = habitRepository.findByStudentId(studentAId)
             .orElseThrow(() -> new RuntimeException("Habit profile not found"));
         HabitProfile habitB = habitRepository.findByStudentId(studentBId)
             .orElseThrow(() -> new RuntimeException("Habit profile not found"));
-        
+
         Optional<CompatibilityScoreRecord> existing = repository.findByStudentAIdAndStudentBId(studentAId, studentBId);
         
-        double score = calculateCompatibility(habitA, habitB);
+        double score = calculateCompatibilityScore(habitA, habitB);
         
         CompatibilityScoreRecord record;
         if (existing.isPresent()) {
@@ -50,47 +50,42 @@ public class CompatibilityScoreServiceImpl implements CompatibilityScoreService 
         
         return repository.save(record);
     }
-    
-    private double calculateCompatibility(HabitProfile a, HabitProfile b) {
+
+    private double calculateCompatibilityScore(HabitProfile a, HabitProfile b) {
         double score = 0;
         int factors = 0;
-        
+
         if (a.getSleepSchedule() != null && b.getSleepSchedule() != null) {
-            score += a.getSleepSchedule().equals(b.getSleepSchedule()) ? 20 : 0;
+            score += a.getSleepSchedule().equals(b.getSleepSchedule()) ? 25 : 0;
             factors++;
         }
         if (a.getCleanlinessLevel() != null && b.getCleanlinessLevel() != null) {
-            score += a.getCleanlinessLevel().equals(b.getCleanlinessLevel()) ? 20 : 0;
+            score += a.getCleanlinessLevel().equals(b.getCleanlinessLevel()) ? 25 : 0;
             factors++;
         }
         if (a.getNoiseTolerance() != null && b.getNoiseTolerance() != null) {
-            score += a.getNoiseTolerance().equals(b.getNoiseTolerance()) ? 20 : 0;
+            score += a.getNoiseTolerance().equals(b.getNoiseTolerance()) ? 25 : 0;
             factors++;
         }
         if (a.getSocialPreference() != null && b.getSocialPreference() != null) {
-            score += a.getSocialPreference().equals(b.getSocialPreference()) ? 20 : 0;
+            score += a.getSocialPreference().equals(b.getSocialPreference()) ? 25 : 0;
             factors++;
         }
-        if (a.getStudyHoursPerDay() != null && b.getStudyHoursPerDay() != null) {
-            int diff = Math.abs(a.getStudyHoursPerDay() - b.getStudyHoursPerDay());
-            score += diff <= 1 ? 20 : (diff <= 2 ? 10 : 0);
-            factors++;
-        }
-        
-        return factors > 0 ? score / factors * 5 : 50;
+
+        return factors > 0 ? score / factors * 4 : 50.0;
     }
-    
+
     @Override
     public CompatibilityScoreRecord getScoreById(Long id) {
         return repository.findById(id)
             .orElseThrow(() -> new RuntimeException("Score not found"));
     }
-    
+
     @Override
     public List<CompatibilityScoreRecord> getScoresForStudent(Long studentId) {
         return repository.findByStudentAIdOrStudentBId(studentId, studentId);
     }
-    
+
     @Override
     public List<CompatibilityScoreRecord> getAllScores() {
         return repository.findAll();
