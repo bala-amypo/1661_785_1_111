@@ -9,11 +9,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/habits")
 public class HabitProfileController {
     private final HabitProfileService service;
-    
+
     public HabitProfileController(HabitProfileService service) {
         this.service = service;
     }
-    
+
+    @PostMapping
+    public ResponseEntity<HabitProfile> createOrUpdate(@RequestBody HabitProfile habit) {
+        return ResponseEntity.ok(service.createOrUpdateHabit(habit));
+    }
+
     @GetMapping("/student/{studentId}")
     public ResponseEntity<HabitProfile> getByStudent(@PathVariable Long studentId) {
         return ResponseEntity.ok(service.getHabitByStudent(studentId));
