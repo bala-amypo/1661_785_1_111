@@ -1,37 +1,29 @@
 package com.example.demo.security;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
+import java.security.Key;
+import java.util.Date;
 
 @Component
 public class JwtUtil {
-
-    // Stub for generating token (adjust as needed)
-    public String generateToken(String username) {
-        // TODO: Implement real JWT generation
-        return "dummy-token-for-" + username;
+    private final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    
+    public String generateToken(String username, String role, String email, String id) {
+        return Jwts.builder()
+            .setSubject(username)
+            .claim("role", role)
+            .claim("email", email)
+            .claim("id", id)
+            .setIssuedAt(new Date())
+            .setExpiration(new Date(System.currentTimeMillis() + 86400000))
+            .signWith(key)
+            .compact();
     }
-
-    // Overloaded version used in your controller (stub)
-    public String generateToken(String a, String b, String c, String d) {
-        // TODO: implement proper token generation logic
-        return "dummy-token";
-    }
-
-    // Extract username from token
-    public String extractUsername(String token) {
-        // TODO: implement real parsing
-        return "demoUser";
-    }
-
-    // Validate token
-    public boolean validate(String token) {
-        // TODO: implement real JWT validation
-        return true;
-    }
-
-    // Optional: validate token with username (stub)
-    public boolean isTokenValid(String token, String username) {
-        // TODO: implement proper validation
-        return true;
+    
+    public void validate(String token) {
+        Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
     }
 }

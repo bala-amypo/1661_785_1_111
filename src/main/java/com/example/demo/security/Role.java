@@ -1,6 +1,7 @@
 package com.example.demo.security;
 
 public enum Role {
-    USER,
+    STUDENT_VIEWER,
+    HOSTEL_MANAGER,
     ADMIN
 }
