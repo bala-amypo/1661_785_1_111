@@ -9,7 +9,7 @@ public class HabitProfileDto {
     private HabitProfile.CleanlinessLevel cleanlinessLevel;
     private HabitProfile.NoiseTolerance noiseTolerance;
     private HabitProfile.SocialPreference socialPreference;
-
+    
     public Long getStudentId() { return studentId; }
     public void setStudentId(Long studentId) { this.studentId = studentId; }
     

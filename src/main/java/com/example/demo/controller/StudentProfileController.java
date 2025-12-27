@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/students")
 public class StudentProfileController {
     private final StudentProfileService service;
-
+    
     public StudentProfileController(StudentProfileService service) {
         this.service = service;
     }
-
+    
     @PostMapping
     public ResponseEntity<StudentProfile> create(@RequestBody StudentProfile student) {
         return ResponseEntity.ok(service.createStudent(student));
     }
-
+    
     @GetMapping("/{id}")
     public ResponseEntity<StudentProfile> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getStudentById(id));

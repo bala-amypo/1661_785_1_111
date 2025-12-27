@@ -5,7 +5,7 @@ public class StudentProfileDto {
     private String email;
     private String fullName;
     private Boolean active;
-
+    
     public String getStudentId() { return studentId; }
     public void setStudentId(String studentId) { this.studentId = studentId; }
     

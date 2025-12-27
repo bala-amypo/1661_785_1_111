@@ -1,32 +1,32 @@
-package com.example.demo.controller;
+// package com.example.demo.controller;
 
-import com.example.demo.model.CompatibilityScoreRecord;
-import com.example.demo.service.CompatibilityScoreService;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
+// import com.example.demo.model.CompatibilityScoreRecord;
+// import com.example.demo.service.CompatibilityScoreService;
+// import org.springframework.web.bind.annotation.*;
+// import java.util.List;
 
-@RestController
-@RequestMapping("/compatibility-score")
-public class CompatibilityScoreController {
+// @RestController
+// @RequestMapping("/compatibility-score")
+// public class CompatibilityScoreController {
 
-    private final CompatibilityScoreService service;
+//     private final CompatibilityScoreService service;
 
-    public CompatibilityScoreController(CompatibilityScoreService service) {
-        this.service = service;
-    }
+//     public CompatibilityScoreController(CompatibilityScoreService service) {
+//         this.service = service;
+//     }
 
-    @PostMapping("/save")
-    public CompatibilityScoreRecord saveScore(@RequestBody CompatibilityScoreRecord score) {
-        return service.saveScore(score);
-    }
+//     @PostMapping("/save")
+//     public CompatibilityScoreRecord saveScore(@RequestBody CompatibilityScoreRecord score) {
+//         return service.saveScore(score);
+//     }
 
-    @GetMapping("/{id}")
-    public CompatibilityScoreRecord getScore(@PathVariable Long id) {
-        return service.getScoreById(id);
-    }
+//     @GetMapping("/{id}")
+//     public CompatibilityScoreRecord getScore(@PathVariable Long id) {
+//         return service.getScoreById(id);
+//     }
 
-    @GetMapping("/all")
-    public List<CompatibilityScoreRecord> getAllScores() {
-        return service.getAllScores();
-    }
-}
+//     @GetMapping("/all")
+//     public List<CompatibilityScoreRecord> getAllScores() {
+//         return service.getAllScores();
+//     }
+// }

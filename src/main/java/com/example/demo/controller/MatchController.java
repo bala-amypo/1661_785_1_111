@@ -6,11 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/match-attempts")
-public class MatchAttemptController {
+@RequestMapping("/api/matches")
+public class MatchController {
     private final MatchAttemptService service;
     
-    public MatchAttemptController(MatchAttemptService service) {
+    public MatchController(MatchAttemptService service) {
         this.service = service;
     }
     
