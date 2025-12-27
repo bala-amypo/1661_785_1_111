@@ -14,6 +14,13 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
+        @Bean
+    public OpenAPI api() {
+        return new OpenAPI()
+                .info(new Info().title("Hostel Roommate Compatibility Matcher API").version("1.0"))
+                .components(new Components().addSecuritySchemes("bearer-jwt",
+                        new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")));
+    }
                 .servers(List.of(
                         new Server().url("https://9186.pro604cr.amypo.ai/")
                 ));
